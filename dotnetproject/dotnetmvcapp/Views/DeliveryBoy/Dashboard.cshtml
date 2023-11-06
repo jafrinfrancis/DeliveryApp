@@ -27,7 +27,7 @@
                     @* <a href="@Url.Action("Edit", new { id = item.Id })" class="btn btn-primary" style="margin-right:
                 10px;">Edit</a>
                 <button class="btn btn-danger delete-button" data-id="@item.Id">Delete</button> *@
-                    <a href="@Url.Action("Edit")" class="btn btn-primary mx-2">Edit</a>
+                    <a href="@Url.Action("Edit",@item)" class="btn btn-primary mx-2">Edit</a>
                     <button class="btn btn-danger delete-button">Delete</button>
                 </td>
             </tr>

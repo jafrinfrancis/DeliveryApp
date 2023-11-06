@@ -10,6 +10,7 @@ builder.Services.AddHttpClient();
 
 builder.Services.AddScoped<IHttpClientService,HttpClientService>();
 builder.Services.AddScoped<IAccountService,AccountService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 
 builder.Services.AddDistributedMemoryCache();
 

@@ -6,23 +6,23 @@ using System.ComponentModel.DataAnnotations;
 
 namespace dotnetmvcapp.Models
 {
-    public class Delivery
+    public class Delivery : BaseEntity
     {
-        [Key]
-        public int DeliveryID { get; set; }
-
-        [Required]
-        public string? userId { get; set; }
-
-        [Required]
+        public int userId { get; set; }
         public DateTime EstablishmentDate { get; set; }
-
-        [Required]
         public int OrderId { get; set; }
+        public DeliveryStatus DeliveryStatus { get; set; }
+    }
 
-        [Required]
-        public int DeliveryStatus { get; set; }
+    public enum DeliveryStatus
+    {
 
+        Pending = 1,
+        OutDelivery = 2,
+        InTransit = 3,
+        DoorLock = 4,
+        Delivered = 5,
+        UnAssigned = 6
     }
 }
 

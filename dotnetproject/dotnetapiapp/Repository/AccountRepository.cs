@@ -10,7 +10,8 @@ namespace dotnetapiapp.Repository
     public interface IAccountRepository{
         public Task<User> GetUserByEmail(string email);
         public Task<User> CreateUser(User model);
-        
+        public Task<User> GetUserById(int id);
+        public Task<User> UpdateUser(User model);
     }
     public class AccountRepository : RepositoryBase,IAccountRepository
     {
@@ -24,9 +25,23 @@ namespace dotnetapiapp.Repository
             return user;
         }
 
+        public async Task<User> GetUserById(int id)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(o => o.Id == id);
+            return user;
+        }
+
         public async Task<User> CreateUser(User model){
             model.CreatedDate = DateTime.UtcNow;
             _context.Users.Add(model);
+            _context.SaveChanges();
+            return model;
+        }
+
+        public async Task<User> UpdateUser(User model)
+        {
+            model.ModifiedDate = DateTime.UtcNow;
+            _context.Users.Update(model);
             _context.SaveChanges();
             return model;
         }

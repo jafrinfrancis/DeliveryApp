@@ -32,7 +32,7 @@ namespace dotnetapiapp.Controllers
                 return Ok(response);
             }
             catch(CustomException ex){
-                var response = new ResponseObject<AuthResponse>{
+                var response = new ResponseObject<string>{
                     IsSuccess = false,
                     ErrorMessage = ex.Message
                 };
@@ -55,7 +55,7 @@ namespace dotnetapiapp.Controllers
                 return Ok(response);
             }
             catch(CustomException ex){
-                var response = new ResponseObject<AuthResponse>{
+                var response = new ResponseObject<string>{
                     IsSuccess = false,
                     ErrorMessage = ex.Message
                 };
@@ -66,8 +66,36 @@ namespace dotnetapiapp.Controllers
             }
         }
 
+        [HttpPut]
+        [Route("Update")]
+        public async Task<ActionResult> Update(UserDetails model)
+        {
+            try
+            {
+                var result = await _processor.Update(model);
+                var response = new ResponseObject<UserDetails>
+                {
+                    IsSuccess = true,
+                    data = result
+                };
+                return Ok(response);
+            }
+            catch (CustomException ex)
+            {
+                var response = new ResponseObject<string>
+                {
+                    IsSuccess = false,
+                    ErrorMessage = ex.Message
+                };
+                return BadRequest(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
         [HttpGet]
-        [Authorize]
         [Route("GetUserDetailsByEmail/{email}")]
         public async Task<ActionResult> GetUserDetailsByEmail(string email){
             try{
@@ -79,13 +107,42 @@ namespace dotnetapiapp.Controllers
                 return Ok(response);
             }
             catch(CustomException ex){
-                var response = new ResponseObject<UserDetails>{
+                var response = new ResponseObject<string>{
                     IsSuccess = false,
                     ErrorMessage = ex.Message
                 };
                 return BadRequest(response);
             }
             catch(Exception ex){
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+        [HttpGet]
+        [Route("GetUserDetailsById/{id}")]
+        public async Task<ActionResult> GetUserDetailsById(int id)
+        {
+            try
+            {
+                var result = await _processor.GetUserById(id);
+                var response = new ResponseObject<UserDetails>
+                {
+                    IsSuccess = true,
+                    data = result
+                };
+                return Ok(response);
+            }
+            catch (CustomException ex)
+            {
+                var response = new ResponseObject<string>
+                {
+                    IsSuccess = false,
+                    ErrorMessage = ex.Message
+                };
+                return BadRequest(response);
+            }
+            catch (Exception ex)
+            {
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }

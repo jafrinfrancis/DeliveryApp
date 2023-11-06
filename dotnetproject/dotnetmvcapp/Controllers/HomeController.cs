@@ -37,7 +37,7 @@ namespace dotnetmvcapp.Controllers
                     HttpContext.Session.SetString("Email", data.Email);
 
                     // Redirect to the dashboard page
-                    return RedirectToAction("Dashboard", "Home");
+                    return RedirectToAction("Dashboard", "DeliveryBoy");
                 }
                 else
                 {
@@ -78,6 +78,11 @@ namespace dotnetmvcapp.Controllers
         public async Task<IActionResult> Test()
         {
             return View();
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            return RedirectToAction("Index");
         }
     }
 }

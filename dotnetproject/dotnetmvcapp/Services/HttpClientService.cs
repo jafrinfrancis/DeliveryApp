@@ -10,15 +10,17 @@ using dotnetCommonUtils.CommonModels;
 namespace dotnetmvcapp.Services
 {
     public interface IHttpClientService{
+        public Task<ResponseObject<T>> Delete<T>(string uri, object content);
         public Task<ResponseObject<T>> Get<T>(string uri);
         public Task<ResponseObject<T>> Post<T>(string uri,object content);
+        public Task<ResponseObject<T>> Put<T>(string uri, object content);
     }
     public class HttpClientService: IHttpClientService
     {
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly JsonSerializerOptions options;
-        private string baseurl = "https://8080-cfddbbbdedacfcbefaafbaaebaaffaffcdcfacc.premiumproject.examly.io";
+        private string baseurl = "http://localhost:8082";
         public HttpClientService(IHttpClientFactory httpClientFactory,IHttpContextAccessor httpContextAccessor){
             _httpClientFactory = httpClientFactory;
             _httpContextAccessor = httpContextAccessor;

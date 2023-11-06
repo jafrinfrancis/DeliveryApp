@@ -9,8 +9,10 @@ using dotnetCommonUtils.CommonModels;
 namespace dotnetmvcapp.Services
 {
     public interface IAccountService {
+        public Task<UserDetails> GetUserDetailsById(int id);
         public Task<ResponseObject<AuthResponse>> Login(Login model);
         public Task<ResponseObject<AuthResponse>> Register(Register model);
+        public Task<UserDetails> Update(UserDetails model);
     }
     public class AccountService : IAccountService
     {
@@ -27,6 +29,18 @@ namespace dotnetmvcapp.Services
         public async Task<ResponseObject<AuthResponse>> Register(Register model){
             var resp = await _httpClientService.Post<AuthResponse>(RouteConstants.AccountServiceRoutes.Register,model);
             return resp;
+        }
+
+        public async Task<UserDetails> Update(UserDetails model)
+        {
+            var resp = await _httpClientService.Put<UserDetails>(RouteConstants.AccountServiceRoutes.Update, model);
+            return resp.data;
+        }
+
+        public async Task<UserDetails> GetUserDetailsById(int id)
+        {
+            var resp = await _httpClientService.Get<UserDetails>(RouteConstants.AccountServiceRoutes.GetUserById.Replace("{Id}",id.ToString()));
+            return resp.data;
         }
     }
 }

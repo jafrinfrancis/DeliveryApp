@@ -1,7 +1,8 @@
-@model Register
+@model dotnetmvcapp.Models.UserDetails
 @{
-    ViewData["Title"] = "Register";
+    // Remove the layout to create a custom dashboard layout.
 }
+
 <div class="container">
     <div class="row">
         <div class="col-md-6 mx-auto">
@@ -9,23 +10,23 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col">
-                            <h3>Register Page</h3>
+                            <h3>Edit Profile</h3>
                             <hr>
                         </div>
                     </div>
-                    <form asp-controller="Home" asp-action="Register" method="post">
+                    <form asp-controller="DeliveryBoy" asp-action="UpdateProfile" method="post">
                         <div class="row">
                             <div class="col">
-                                <label>Username</label>
-                                <div>
-                                    @Html.TextBoxFor(x => x.UserName)
+                                <label>Email</label>
+                                <div class="disabled">
+                                    @Html.TextBoxFor(x=>x.Email,null,new {@style="pointer-events: none;background-color:#E9ECEF"})
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col">
-                                    <label> Password</label>
-                                    <div>
-                                        @Html.TextBoxFor(x => x.Password)
+                                    <label> User Name</label>
+                                    <div class="disabled">
+                                        @Html.TextBoxFor(x=>x.UserName,null,new {@style="pointer-events: none;background-color:#E9ECEF"})
                                     </div>
 
                                 </div>
@@ -33,20 +34,17 @@
                             </div>
                             <div class="row">
                                 <div class="col">
-                                    <label> Confirm Password</label>
+                                    <label> Role </label>
                                     <div>
-                                        @Html.TextBoxFor(x => x.ConfirmPassword)
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                            <div class="row">
-                                <div class="col">
-                                    <label> Email</label>
-                                    <div>
-                                        @Html.TextBoxFor(x => x.Email)
+                                        @Html.DropDownListFor(x=>x.UserRole,new SelectList(
+                                        new List<Object>{
+                                        new { value = 0 , text = "Admin"  },
+                                        new { value = 1 , text = "Delivery Boy" }
+                                        },
+                                        "value",
+                                        "text",
+                                        Model.UserRole
+                                        ))
                                     </div>
 
                                 </div>
@@ -54,7 +52,7 @@
                             </div>
                             <div class="row">
                                 <div class="col">
-                                    <label> PhoneNumber</label>
+                                    <label> Phone Number</label>
                                     <div>
                                         @Html.TextBoxFor(x => x.PhoneNumber)
                                     </div>
@@ -66,7 +64,7 @@
                         <br>
                         <div class="row">
                             <div class="col-md-6">
-                                <button class="btn btn-success btn-md"> Register</button>
+                                <button class="btn btn-success btn-md"> Update Profile</button>
                             </div>
                     </form>
 

@@ -35,7 +35,7 @@ namespace dotnetapiapp.Repository
 
         public async Task<List<Order>> GetAllOrders()
         {
-            var orders = _context.Orders.ToList<Order>();
+            var orders = _context.Orders.Include(o=>o.Delivery).ToList<Order>();
             return orders;
         }
 

@@ -1,0 +1,81 @@
+@model dotnetmvcapp.ViewModels.DeliveryDetails
+@{
+    // Remove the layout to create a custom dashboard layout.
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <h3>Edit Order</h3>
+                            <hr>
+                        </div>
+                    </div>
+                    <form asp-controller="DeliveryBoy" asp-action="Update" method="post">
+                        <div class="row">
+                            <div class="col">
+                                <label>Order Id</label>
+                                <div>
+                                    @Html.TextBoxFor(x=>x.OrderId,new {@disabled = true})
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <label> Delivery Id</label>
+                                    <div>
+                                        @Html.TextBoxFor(x=>x.DeliveryId,new {@disabled = true})
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <label> Order Status</label>
+                                    <div>
+                                        @Html.DropDownListFor(x=>x.DeliveryStatus,new SelectList(
+                                        new List<Object>{
+                                        new { value = 0 , text = "Unassigned"  },
+                                        new { value = 1 , text = "Pending" },
+                                        new { value = 2 , text = "OutForDelivery"},
+                                        new { value = 3 , text = "InTransit"},
+                                        new { value = 4 , text = "DoorLock"},
+                                        new { value = 5 , text = "Delivered"}
+                                        },
+                                        "value",
+                                        "text",
+                                        Model.DeliveryStatus
+                                        ))
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <label> Estimated Date</label>
+                                    <div>
+                                        @Html.TextBoxFor(x => x.OrderedDate)
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <button class="btn btn-success btn-md"> Update</button>
+                            </div>
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

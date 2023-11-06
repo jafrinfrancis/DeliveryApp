@@ -16,9 +16,11 @@ namespace dotnetmvcapp.Controllers
     public class DeliveryBoyController : Controller
     {
         private readonly IOrderService _service;
-        public DeliveryBoyController(IOrderService service)
+        private readonly IAccountService _accountService;
+        public DeliveryBoyController(IOrderService service, IAccountService accountService)
         {
             _service = service;
+            _accountService = accountService;
         }
         public async Task<ActionResult> Dashboard()
         {
@@ -27,25 +29,50 @@ namespace dotnetmvcapp.Controllers
             {
                 details = orders.Select(o => new DeliveryDetails
                 {
-                    DeliveryId = o.DeliveryDetails?.DeliveryID ?? 0,
-                    OrderId = o.OrderID,
-                    OrderedDate = o.CreatedDate.ToString("mm-dd-yyyy"),
-                    DeliveryStatus = GetDeliveryStatus(o.DeliveryDetails.DeliveryStatus)
+                    DeliveryId = o.Delivery?.Id ?? 0,
+                    OrderId = o.Id,
+                    OrderedDate = o.CreatedDate.ToLongDateString(),
+                    DeliveryStatus = GetDeliveryStatus(o.Delivery.DeliveryStatus)
 
                 }).ToList()
             };
             return View(dasboard);
         }
 
-        private string GetDeliveryStatus(int status)
+        private string GetDeliveryStatus(DeliveryStatus status)
         {
             switch (status)
             {
-                case 0:
+                case DeliveryStatus.Pending:
                     return "Pending";
                 default:
                     return "Unassigned";
             }
+        }
+
+        public IActionResult Edit(DeliveryDetails model)
+        {
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult Update(DeliveryDetails model)
+        {
+            return RedirectToAction("Dashboard");
+        }
+
+
+        public async Task<IActionResult> Profile()
+        {
+            var user = await _accountService.GetUserDetailsById(1);
+            return View(user);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateProfile(UserDetails model)
+        {
+            await _accountService.Update(model);
+            return RedirectToAction("Profile");
         }
 
         public IActionResult Index()
