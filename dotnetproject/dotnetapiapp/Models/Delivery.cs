@@ -10,7 +10,6 @@ namespace dotnetapiapp.Models
     public class Delivery : BaseEntity
     {
         public int userId { get; set; }
-        [Required]
         public DateTime EstablishmentDate { get; set; }
         public int OrderId { get; set; }
         public DeliveryStatus DeliveryStatus { get; set; }
