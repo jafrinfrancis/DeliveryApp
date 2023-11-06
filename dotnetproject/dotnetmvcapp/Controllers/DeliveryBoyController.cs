@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using dotnetmvcapp.Services;
 using dotnetmvcapp.Models;
+using dotnetmvcapp.ViewModels;
 
 
 
@@ -14,39 +15,43 @@ namespace dotnetmvcapp.Controllers
 {
     public class DeliveryBoyController : Controller
     {
-        private readonly IAccountService _service;
-        public DeliveryBoyController(IAccountService service)
+        private readonly IOrderService _service;
+        public DeliveryBoyController(IOrderService service)
         {
-            _service=service;
+            _service = service;
         }
-        public ActionResult Dashboard()
+        public async Task<ActionResult> Dashboard()
         {
-            return View();
+            var orders = await _service.GetAllOrders();
+            var dasboard = new DeliveryDashboardViewModel
+            {
+                details = orders.Select(o => new DeliveryDetails
+                {
+                    DeliveryId = o.DeliveryDetails?.DeliveryID ?? 0,
+                    OrderId = o.OrderID,
+                    OrderedDate = o.CreatedDate.ToString("mm-dd-yyyy"),
+                    DeliveryStatus = GetDeliveryStatus(o.DeliveryDetails.DeliveryStatus)
+
+                }).ToList()
+            };
+            return View(dasboard);
         }
 
-        [HttpPost]
-        public async Task<ActionResult> Register(Register model )
+        private string GetDeliveryStatus(int status)
         {
-            if(ModelState.IsValid)
-            {       var response=await _service.Register(model);
-                    Console.WriteLine("Test 1");
-                    Console.WriteLine(response.ErrorMessage);
-                    if(response!=null)
-                    {
-                        Console.WriteLine("Test 1");
-                        return RedirectToAction("Index","Home");
-                        
-                    }
-                    return View();
+            switch (status)
+            {
+                case 0:
+                    return "Pending";
+                default:
+                    return "Unassigned";
             }
-           
-            return View(model);
         }
 
         public IActionResult Index()
         {
             return View();
         }
-        
+
     }
 }

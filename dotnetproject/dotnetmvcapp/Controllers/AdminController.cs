@@ -24,25 +24,6 @@ namespace dotnetmvcapp.Controllers
             return View();
         }
 
-        [HttpPost]
-        public async Task<ActionResult> Register(Register model )
-        {
-            if(ModelState.IsValid)
-            {       var response=await _service.Register(model);
-                    Console.WriteLine("Test 1");
-                    Console.WriteLine(response.ErrorMessage);
-                    if(response!=null)
-                    {
-                        Console.WriteLine("Test 1");
-                        return RedirectToAction("Index","Home");
-                        
-                    }
-                    return View();
-            }
-           
-            return View(model);
-        }
-
         public IActionResult Index()
         {
             return View();

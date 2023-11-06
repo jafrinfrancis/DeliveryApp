@@ -10,4 +10,9 @@ namespace dotnetmvcapp.RouteConstants
         public static string Login = @"/api/Account/Login";
         public static string Register = @"/api/Account/Register";
     }
+
+    public static class OrderServiceRoutes
+    {
+        public static string GetAllOrders = @"/api/Order/GetAllOrders";
+    }
 }

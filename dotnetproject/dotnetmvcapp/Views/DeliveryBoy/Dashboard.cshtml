@@ -1,3 +1,4 @@
+@model dotnetmvcapp.ViewModels.DeliveryDashboardViewModel
 @{
     // Remove the layout to create a custom dashboard layout.
 }
@@ -15,18 +16,21 @@
         </tr>
     </thead>
     <tbody>
-        @* @foreach (var item in Model){ *@
+        @foreach (var item in Model.details)
+        {
             <tr>
-                <td>Delivery Id</td>
-                <td>Order Id</td>
-                <td>Establishment Date</td>
-                <td>Delivery Status</td>
+                <td>@item.DeliveryId</td>
+                <td>@item.OrderId</td>
+                <td>@item.OrderedDate</td>
+                <td>@item.DeliveryStatus</td>
                 <td style="text-align: center;">
-                    @* <a href="@Url.Action("Edit", new { id = item.Id })" class="btn btn-primary" style="margin-right: 10px;">Edit</a>
-                    <button class="btn btn-danger delete-button" data-id="@item.Id">Delete</button> *@  
+                    @* <a href="@Url.Action("Edit", new { id = item.Id })" class="btn btn-primary" style="margin-right:
+                10px;">Edit</a>
+                <button class="btn btn-danger delete-button" data-id="@item.Id">Delete</button> *@
                     <a href="@Url.Action("Edit")" class="btn btn-primary mx-2">Edit</a>
-                    <button class="btn btn-danger delete-button" >Delete</button>
-                </td>                
-            </tr>        
+                    <button class="btn btn-danger delete-button">Delete</button>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

@@ -10,29 +10,24 @@ namespace dotnetmvcapp.Models
     {
 
         [Key]
-        
         public int OrderID { get; set; }
 
-        
-          [Required]
+        [Required]
         public string CustomerName { get; set; }
 
         [Required]
-
         public string ContactNumber { get; set; }
 
-        
-         [Required]
+        [Required]
         public string Location { get; set; }
 
         [Required]
-
         public int Amount { get; set; }
 
         [Required]
+        public string OrderType { get; set; }
+        public DateTime CreatedDate { get; set; }
 
-        public string OrderType {get;set;}
-
- 
+        public Delivery DeliveryDetails { get; set; }
     }
 }

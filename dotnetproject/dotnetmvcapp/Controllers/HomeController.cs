@@ -57,11 +57,8 @@ namespace dotnetmvcapp.Controllers
         {
             if(ModelState.IsValid)
             {       var response=await _accountService.Register(model);
-                    Console.WriteLine("Test 1");
-                    Console.WriteLine(response.ErrorMessage);
                     if(response!=null)
                     {
-                        Console.WriteLine("Test 1");
                         return RedirectToAction("Index","Home");
                         
                     }
@@ -80,16 +77,6 @@ namespace dotnetmvcapp.Controllers
 
         public async Task<IActionResult> Test()
         {
-            // Console.WriteLine("Test start");
-            // Console.WriteLine(HttpContext.Session.GetString("UserName"));
-            // Console.WriteLine(HttpContext.User);
-            // var response = await _accountService.Login(new Login{Email="jafrin@gmail.com",
-            //                                 Password="admin@123"});
-            //         HttpContext.Session.SetString("AuthToken", response.Token);
-            //         HttpContext.Session.SetString("UserName", response.UserName);
-            //         HttpContext.Session.SetString("Email", response.Email);
-            // Console.WriteLine(response.token);
-            // Console.WriteLine(HttpContext.Session.GetString("UserName"));
             return View();
         }
     }
