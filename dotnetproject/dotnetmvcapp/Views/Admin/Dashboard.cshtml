@@ -1,0 +1,43 @@
+
+@* @model List<dotnetmvcapp.Models.Order> *@
+<h2>All Orders</h2>
+ 
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Order Id</th>
+            <th>Customer Name</th>
+            <th>Contact</th>
+            <th>Location</th>
+            <th>Amount</th>
+            <th>Order Type</th>          
+        </tr>
+    </thead>
+    <tbody>
+        <th>Order Id</th>
+        <th>Customer Name</th>
+        <th>Contact</th>
+        <th>Location</th>
+        <th>Amount</th>
+        <th>Order Type</th>
+        <td>
+            <a href="@Url.Action("Edit")" class="btn btn-primary">Edit</a>
+            <button class="btn btn-danger delete-button">Delete</button>
+        </td>      
+        @* @foreach (var order in Model)
+        {
+            <tr>
+                <td>@order.OrderID</td>
+                <td>@order.CustomerName</td>
+                <td>@order.ContactNumber</td>
+                <td>@order.Location</td>
+                <td>@order.Amount</td>
+                <td>@order.OrderType</td>
+                <td>
+                    <a href="@Url.Action("Edit")" class="btn btn-primary">Edit</a>
+                    <button class="btn btn-danger delete-button">Delete</button>
+                </td>
+            </tr>
+        } *@
+    </tbody>
+</table>

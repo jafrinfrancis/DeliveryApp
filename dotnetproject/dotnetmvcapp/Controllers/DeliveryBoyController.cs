@@ -12,15 +12,14 @@ using dotnetmvcapp.Models;
 
 namespace dotnetmvcapp.Controllers
 {
-    [Route("[controller]/[action]")]
-    public class AccountController : Controller
+    public class DeliveryBoyController : Controller
     {
         private readonly IAccountService _service;
-        public AccountController(IAccountService service)
+        public DeliveryBoyController(IAccountService service)
         {
             _service=service;
         }
-        public ActionResult Register()
+        public ActionResult Dashboard()
         {
             return View();
         }

@@ -1,0 +1,32 @@
+@{
+    // Remove the layout to create a custom dashboard layout.
+}
+<div>
+    <h1>DeliverBoy Dashboard </h1>
+    <br>
+</div>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Delivery Id</th>
+            <th>Order Id</th>
+            <th>Establishment Date</th>
+            <th>Delivery Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @* @foreach (var item in Model){ *@
+            <tr>
+                <td>Delivery Id</td>
+                <td>Order Id</td>
+                <td>Establishment Date</td>
+                <td>Delivery Status</td>
+                <td style="text-align: center;">
+                    @* <a href="@Url.Action("Edit", new { id = item.Id })" class="btn btn-primary" style="margin-right: 10px;">Edit</a>
+                    <button class="btn btn-danger delete-button" data-id="@item.Id">Delete</button> *@  
+                    <a href="@Url.Action("Edit")" class="btn btn-primary mx-2">Edit</a>
+                    <button class="btn btn-danger delete-button" >Delete</button>
+                </td>                
+            </tr>        
+    </tbody>
+</table>
