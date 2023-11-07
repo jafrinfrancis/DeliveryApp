@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 using dotnetmvcapp.Services;
 using dotnetmvcapp.Models;
 using System.Reflection;
-
+using dotnetmvcapp.ViewModels;
 
 
 namespace dotnetmvcapp.Controllers
@@ -22,9 +22,34 @@ namespace dotnetmvcapp.Controllers
             _service=service;
             _orderService = orderService;
         }
-        public ActionResult Dashboard()
+        public async Task<ActionResult> Dashboard()
         {
-            return View();
+            var orders = await _orderService.GetAllOrders();
+            var dasboard = new DeliveryDashboardViewModel
+            {
+                details = orders.Select(o => new DeliveryDetails
+                {
+                    DeliveryId = o.Delivery?.Id ?? 0,
+                    OrderId = o.Id,
+                    OrderedDate = o.CreatedDate.ToLongDateString(),
+                    DeliveryStatus = GetDeliveryStatus(o.Delivery.DeliveryStatus),
+                    CustomerName = o.CustomerName,
+                    ContactNumber = o.ContactNumber,
+                    Location = o.Location,
+                    Amount = o.Amount,
+                    OrderType = o.OrderType.ToString()
+                }).ToList()
+            };
+            return View(dasboard);
+        }
+
+        private string GetDeliveryStatus(DeliveryStatus status){
+            return status.ToString();
+        }
+
+        public ActionResult EditOrderDetails(DeliveryDetails model)
+        {
+           return View(model);
         }
 
         public IActionResult Index()

@@ -1,3 +1,4 @@
+@model dotnetmvcapp.ViewModels.DeliveryDashboardViewModel
 @{
     ViewData["Title"] = "Dashboard";
 }
@@ -16,32 +17,21 @@
                      
         </tr>
     </thead>
-     <tbody>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th> 
-            <a href="@Url.Action("Edit")" class="btn btn-primary">Edit</a>
-            <button class="btn btn-danger delete-button">Delete</button>
-        </th>   
-           
-        @* @foreach (var order in Model)
+    <tbody>     
+        @foreach (var order in Model.details)
         {
             <tr>
-                <td>@order.OrderID</td>
+                <td>@order.OrderId</td>
                 <td>@order.CustomerName</td>
                 <td>@order.ContactNumber</td>
                 <td>@order.Location</td>
                 <td>@order.Amount</td>
                 <td>@order.OrderType</td>
                 <td>
-                    <a href="@Url.Action("Edit")" class="btn btn-primary">Edit</a>
+                    <a href="@Url.Action("EditOrderDetails",@order)" class="btn btn-primary">Edit</a>
                     <button class="btn btn-danger delete-button">Delete</button>
                 </td>
             </tr>
-        } *@
+        } 
     </tbody>
 </table>
