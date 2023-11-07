@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using dotnetmvcapp.Models;
 using dotnetmvcapp.Services;
+using System.Reflection;
 
 
 namespace dotnetmvcapp.Controllers
@@ -77,6 +78,10 @@ namespace dotnetmvcapp.Controllers
 
         public async Task<IActionResult> Test()
         {
+            var token = HttpContext.Session.GetString("AuthToken");
+            
+                var response = await _accountService.Login(new Login { Email="jafrin@gmail.com",Password="admin@123"});
+                HttpContext.Session.SetString("AuthToken", "token");
             return View();
         }
 

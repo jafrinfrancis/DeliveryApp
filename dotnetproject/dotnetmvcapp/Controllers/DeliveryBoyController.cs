@@ -24,6 +24,9 @@ namespace dotnetmvcapp.Controllers
         }
         public async Task<ActionResult> Dashboard()
         {
+            var token= HttpContext.Session.GetString("AuthToken");
+            var name = HttpContext.Session.GetString("UserName");
+            var email = HttpContext.Session.GetString("Email");
             var orders = await _service.GetAllOrders();
             var dasboard = new DeliveryDashboardViewModel
             {
@@ -64,7 +67,8 @@ namespace dotnetmvcapp.Controllers
 
         public async Task<IActionResult> Profile()
         {
-            var user = await _accountService.GetUserDetailsById(1);
+            var userId = HttpContext.Session.GetInt32("UserId") ?? 0;
+            var user = await _accountService.GetUserDetailsById(userId);
             return View(user);
         }
 

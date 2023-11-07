@@ -1,3 +1,4 @@
+using dotnetmvcapp.MiddleWare;
 using dotnetmvcapp.Services; 
 using Microsoft.AspNetCore.Session;
 
@@ -16,7 +17,7 @@ builder.Services.AddDistributedMemoryCache();
 
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromSeconds(10000);
+    options.IdleTimeout = TimeSpan.FromMinutes(10);
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
@@ -41,6 +42,8 @@ app.UseSession();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.UseMiddleware<AuthMiddleWare>();
 
 app.MapControllerRoute(
     name: "default",
