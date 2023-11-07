@@ -28,7 +28,6 @@ namespace dotnetmvcapp.Models
         [Display(Name="PhoneNumber")]
         [RegularExpression(@"^\+?(\d{1,4})?[-.]?(\d{1,14})$",ErrorMessage="Invalid phone number")]
         public string PhoneNumber { get; set; }
-        [Required]
-        public int UserRole { get; set; }        
+        public Role UserRole { get; set; }        
     }
 }

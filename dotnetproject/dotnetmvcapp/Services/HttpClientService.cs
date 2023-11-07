@@ -20,7 +20,7 @@ namespace dotnetmvcapp.Services
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly JsonSerializerOptions options;
-        private string baseurl = "http://localhost:8082";
+        private string baseurl = "https://8080-cfddbbbdedacfcbefaafbaaebaaffaffcdcfacc.premiumproject.examly.io";
         public HttpClientService(IHttpClientFactory httpClientFactory,IHttpContextAccessor httpContextAccessor){
             _httpClientFactory = httpClientFactory;
             _httpContextAccessor = httpContextAccessor;

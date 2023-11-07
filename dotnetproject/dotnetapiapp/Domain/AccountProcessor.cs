@@ -34,7 +34,7 @@ namespace dotnetapiapp.Domain
                 throw new CustomException("Passwords doesnot match");
             }
             var token = TokenHelper.GenerateToken(user.UserName,user.Email,user.UserRole.ToString());
-            return new AuthResponse{Token=token,UserName=user.UserName,Email=user.Email,UserId = user.Id};
+            return new AuthResponse{Token=token,UserDetails=new UserDetails(user)};
         }
 
         public async Task<AuthResponse> Register(Register model){        
@@ -49,7 +49,7 @@ namespace dotnetapiapp.Domain
             user.PasswordSalt = salt;
             user =  await _repo.CreateUser(user);
             var token = TokenHelper.GenerateToken(user.UserName,user.Email,user.UserRole.ToString());
-            return new AuthResponse{Token=token,UserName=user.UserName,Email=user.Email,UserId=user.Id };
+            return new AuthResponse{Token=token,UserDetails=new UserDetails(user)};
         }
 
         public async Task<UserDetails> Update(UserDetails model)

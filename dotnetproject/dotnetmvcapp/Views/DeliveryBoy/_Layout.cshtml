@@ -30,7 +30,7 @@
             </ul>
         </div>
         <div class="navbar-nav ml-auto mr-auto">
-            <span class="text-light"> Welcome, @Accessor.HttpContext.Session.GetString("UserName") </span>
+            <span class="navbar-text"> Welcome, @Accessor.HttpContext.Session.GetString("UserName")&nbsp;&nbsp;</span>
             <form action="@Url.Action("Logout", "Home")" method="post">
                 <button type="submit" class="btn btn-success">Logout</button> 
             </form>

@@ -34,12 +34,15 @@ namespace dotnetmvcapp.Controllers
                 {
                     var data = response.data;
                     HttpContext.Session.SetString("AuthToken", data.Token);
-                    HttpContext.Session.SetString("UserName", data.UserName);
-                    HttpContext.Session.SetString("Email", data.Email);
-                    HttpContext.Session.SetInt32("UserId", data.UserId);
+                    HttpContext.Session.SetString("UserName", data.UserDetails.UserName);
+                    HttpContext.Session.SetString("Email", data.UserDetails.Email);
+                    HttpContext.Session.SetInt32("UserId", data.UserDetails.Id);
 
                     // Redirect to the dashboard page
-                    return RedirectToAction("Dashboard", "DeliveryBoy");
+                    if(data.UserDetails.UserRole == Role.Admin)
+                        return RedirectToAction("Dashboard", "Admin");
+                    else
+                        return RedirectToAction("Dashboard", "DeliveryBoy");
                 }
                 else
                 {
@@ -51,7 +54,8 @@ namespace dotnetmvcapp.Controllers
 
         public ActionResult Register()
         {
-            return View();
+            var register = new Register();
+            return View(register);
         }
 
         [HttpPost]
