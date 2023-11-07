@@ -8,6 +8,8 @@ namespace dotnetmvcapp.Models
 {
     public class Order : BaseEntity
     {
+      [Key]
+      public int OrderID{get;set;}
 
         public string CustomerName { get; set; }
 
@@ -17,7 +19,17 @@ namespace dotnetmvcapp.Models
 
         public Decimal Amount { get; set; }
 
-        public string OrderType { get; set; }
+        public OrderType OrderType { get; set; }
         public Delivery Delivery { get; set; }
     }
+
+    
+public enum OrderType
+{
+    Online,
+    Direct,
+    ThirdParty,
+    Pending,
+    LongTimeOrder
+}
 }

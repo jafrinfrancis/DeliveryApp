@@ -9,6 +9,7 @@ using dotnetapiapp.Common;
 using dotnetapiapp.Domain;
 using dotnetCommonUtils.CommonModels;
 
+
 namespace dotnetapiapp.Controllers
 {
     [ApiController]
@@ -195,5 +196,36 @@ namespace dotnetapiapp.Controllers
         public async Task<ActionResult> Test(){
             return Ok("success auth");
         }
+
+        // [HttpGet]
+        // [Authorize( OrderType= "Online")]
+        // [Route("Online")]
+        // public async Task<ActionResult> Online(){
+        //     return Ok("success auth");
+        // }
+        // [HttpGet]
+        // [Authorize(OrderType = "Direct")]
+        // [Route("Direct")]
+        // public async Task<ActionResult> Direct(){
+        //     return Ok("success auth");
+        // }
+        // [HttpGet]
+        // [Authorize(OrderType = "ThirdParty")]
+        // [Route("ThirdParty")]
+        // public async Task<ActionResult> ThirdParty(){
+        //     return Ok("success auth");
+        // }
+        // [HttpGet]
+        // [Authorize(OrderType = "Pending")]
+        // [Route("Pending")]
+        // public async Task<ActionResult> Pending(){
+        //     return Ok("success auth");
+        // }
+        // [HttpGet]
+        // [Authorize(OrderType = "LongTimeOrder")]
+        // [Route("LongTimeOrder")]
+        // public async Task<ActionResult> LongTimeOrder(){
+        //     return Ok("success auth");
+        // }
     }
 }

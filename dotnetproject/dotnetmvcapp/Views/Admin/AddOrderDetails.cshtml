@@ -1,0 +1,139 @@
+﻿@model Order
+@{
+    ViewData["Title"] = "Add Order Details";
+}
+@* <style>
+  body{background: #0000000000000}.card{border: none;height: 320px}.forms-inputs{position: relative}.forms-inputs span{position: absolute;top:-18px;left: 10px;background-color: #fff;padding: 5px 10px;font-size: 15px}.forms-inputs input{height: 50px;border: 2px solid #eee}.forms-inputs input:focus{box-shadow: none;outline: none;border: 2px solid #000}.btn{height: 50px}.success-data{display: flex;flex-direction: column}.bxs-badge-check{font-size: 90px}
+</style> *@
+
+
+  <div class="container">
+    <div class="row">
+        <div class="col-md-4 mx-auto">
+            <div class="card">
+                <div class="card-body">
+                    @* <div class="form-data" v-if="!submitted">
+                    <div class="forms-inputs mb-4"> <span>Email or username</span> <input autocomplete="off" type="text" v-model="email" v-bind:class="{'form-control':true, 'is-invalid' : !validEmail(email) && emailBlured}" v-on:blur="emailBlured = true">
+                        <div class="invalid-feedback">A valid email is required!</div>
+                    </div>
+                    <div class="forms-inputs mb-4"> <span>Password</span> <input autocomplete="off" type="password" v-model="password" v-bind:class="{'form-control':true, 'is-invalid' : !validPassword(password) && passwordBlured}" v-on:blur="passwordBlured = true">
+                        <div class="invalid-feedback">Password must be 8 character!</div>
+                    </div>
+                    <div class="mb-3"> <button v-on:click.stop.prevent="submit" class="btn btn-dark w-100">Login</button> </div>
+                </div> *@
+                    <div class="row">
+                        <div class="col">
+                            <h3>AddOrderDetails</h3>
+                            <hr>
+                        </div>
+                    </div>
+
+                    <form asp-controller="Admin" asp-action="Dashboard" method="post">         
+
+
+                    <div class="row">
+                        <div class="col">
+                            <label>OrderID</label>
+
+                                       
+
+
+
+                            @Html.TextBoxFor(u=>u.OrderID, new {@class="form-control"})
+
+
+                                  
+                        </div>
+                        
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label>CustomerName</label>
+
+
+                                                    
+                            @Html.TextBoxFor(u=>u.CustomerName, new {@class="form-control"})
+                               
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col">
+                            <label>ContactNumber</label>
+
+
+                                                    
+                            @Html.TextBoxFor(u=>u.ContactNumber, new {@class="form-control"})
+                               
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col">
+                            <label>Location</label>
+
+
+                                                    
+                            @Html.TextBoxFor(u=>u.Location, new {@class="form-control"})
+                               
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col">
+                            <label>Amount</label>                        
+                            @Html.TextBoxFor(u=>u.Amount, new {@class="form-control"})
+                               
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col">
+                            <label>OrderType</label>
+                            <div>
+                                        @Html.DropDownListFor(x=>x.OrderType,new SelectList(
+                                        new List<Object>{
+                                        new { value = 0 , text = "Online"  },
+                                        new { value = 1 , text = "Direct" },
+                                         new { value = 2 , text = "ThirdParty" },
+                                          new { value = 3 , text = "Pending" },
+                                           new { value = 4 , text = "LongTimeOrder" }
+                                        },
+                                        "value",
+                                        "text",
+                                        Model.OrderType
+                                        ))
+                            </div>
+                               
+                        </div>
+                    </div>
+                    <br>
+                    <div class="col">
+                        <center>
+                            <button class="btn btn-success btn-md" >Add</button>
+                        </center>
+                        
+                    </div>
+                    </form>
+                    <form>
+                        
+                    <div class="col">
+                        <center>
+                           @Html.ActionLink("Create a new account", "Register", "Home", new { area = "Home" }, null)
+                        </center>
+                        
+                    </div>
+                    </form>
+                </div>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
