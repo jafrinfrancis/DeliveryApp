@@ -36,6 +36,7 @@ namespace dotnetmvcapp.Controllers
                     HttpContext.Session.SetString("AuthToken", data.Token);
                     HttpContext.Session.SetString("UserName", data.UserName);
                     HttpContext.Session.SetString("Email", data.Email);
+                    HttpContext.Session.SetInt32("UserId", data.UserId);
 
                     // Redirect to the dashboard page
                     return RedirectToAction("Dashboard", "DeliveryBoy");
@@ -85,8 +86,9 @@ namespace dotnetmvcapp.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Logout()
+        public IActionResult Logout()
         {
+            HttpContext.Session.Clear();
             return RedirectToAction("Index");
         }
     }
