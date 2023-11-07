@@ -15,11 +15,11 @@ namespace dotnetmvcapp.Controllers
 {
     public class AdminController : Controller
     {
-        private readonly IAccountService _service;
+        private readonly IAccountService _accountService;
         private readonly IOrderService _orderService;
-        public AdminController(IOrderService orderService,IAccountService service)
+        public AdminController(IOrderService orderService,IAccountService accountService)
         {
-            _service=service;
+            _accountService=accountService;
             _orderService = orderService;
         }
         public async Task<ActionResult> Dashboard()
@@ -31,13 +31,14 @@ namespace dotnetmvcapp.Controllers
                 {
                     DeliveryId = o.Delivery?.Id ?? 0,
                     OrderId = o.Id,
-                    OrderedDate = o.CreatedDate.ToLongDateString(),
-                    DeliveryStatus = GetDeliveryStatus(o.Delivery.DeliveryStatus),
+                    EstablishmentDate = o.Delivery.EstablishmentDate,
+                    DeliveryStatus = o.Delivery.DeliveryStatus,
+                    DeliveryStatusString = o.Delivery.DeliveryStatus.ToString(),
                     CustomerName = o.CustomerName,
                     ContactNumber = o.ContactNumber,
                     Location = o.Location,
                     Amount = o.Amount,
-                    OrderType = o.OrderType.ToString()
+                    OrderType = o.OrderType
                 }).ToList()
             };
             return View(dasboard);
@@ -52,6 +53,26 @@ namespace dotnetmvcapp.Controllers
            return View(model);
         }
 
+        public async Task<IActionResult> Delete(DeliveryDetails model)
+        {
+            var resp = await _orderService.DeleteOrder(model.OrderId);
+            return RedirectToAction("Dashboard");
+        }
+
+        public async Task<IActionResult> Profile()
+        {
+            var userId = HttpContext.Session.GetInt32("UserId") ?? 0;
+            var user = await _accountService.GetUserDetailsById(userId);
+            return View(user);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateProfile(UserDetails model)
+        {
+            await _accountService.Update(model);
+            return RedirectToAction("Profile");
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -59,35 +80,39 @@ namespace dotnetmvcapp.Controllers
         
         public ActionResult AddOrderDetails()
         {
-        //    var orderTypes = Enum.GetNames(typeof(OrderType)).Select(x => new SelectListItem { Text = x, Value = x }).ToList();
-        //    ViewData["OrderType"] = orderTypes;
-
-           var enumData = from OrderType e in Enum.GetValues(typeof(OrderType))  
-            select new   
-            {   
-            ID = (int)e,   
-            Name = e.ToString()   
-            };  
-           //ViewBag.OrderType=new SelectList(enumData,"ID","Name");  
-    
-            var order = new Order();
+           var order = new DeliveryDetails();
            return View(order);
         }
         [HttpPost]
-        public async Task<ActionResult> AddOrderDetails(Order model )
+        public async Task<ActionResult> AddOrderDetails(DeliveryDetails model)
         {
-            if(ModelState.IsValid)
-            {       var response=await _orderService.CreateOrder(model);
-                    if(response!=null)
+            if (ModelState.IsValid)
+            {
+                var order = new Order()
+                {
+                    ContactNumber = model.ContactNumber,
+                    CustomerName = model.CustomerName,
+                    Amount = model.Amount,
+                    OrderType = model.OrderType,
+                    Location = model.Location,
+                    Delivery = new Delivery()
                     {
-                        return RedirectToAction("Dashboard","Admin");
-                        
+                        DeliveryStatus = model.DeliveryStatus,
+                        EstablishmentDate = model.EstablishmentDate,
+                        userId = 0
                     }
-                    return View();
+                };
+                var response = await _orderService.CreateOrder(order);
+                if (response != null)
+                {
+                    return RedirectToAction("Dashboard", "Admin");
+
+                }
+                return View();
             }
 
             OrderType selectedOrderType = model.OrderType;
-           
+
             return View(model);
         }
     }

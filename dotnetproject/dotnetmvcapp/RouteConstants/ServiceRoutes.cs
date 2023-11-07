@@ -21,7 +21,7 @@ namespace dotnetmvcapp.RouteConstants
         public static string GetOrderById = @"/api/Order/GetOrderById/{id}";
         public static string UpdateOrder = @"/api/Order/UpdateOrder";
         public static string CreateOrder = @"/api/Order/CreateOrder";
-        public static string DeleteOrder = @"/api/Order/DeleteOrder";
+        public static string DeleteOrder = @"/api/Order/DeleteOrder/{id}";
         public static string UpdateDelivery = @"/api/Order/UpdateDelivery";
     }
 }

@@ -22,14 +22,14 @@
             <tr>
                 <td>@item.DeliveryId</td>
                 <td>@item.OrderId</td>
-                <td>@item.OrderedDate</td>
-                <td>@item.DeliveryStatus</td>
+                <td>@item.EstablishmentDate</td>
+                <td>@item.DeliveryStatusString</td>
                 <td style="text-align: center;">
                     @* <a href="@Url.Action("Edit", new { id = item.Id })" class="btn btn-primary" style="margin-right:
                 10px;">Edit</a>
                 <button class="btn btn-danger delete-button" data-id="@item.Id">Delete</button> *@
                     <a href="@Url.Action("Edit",@item)" class="btn btn-primary mx-2">Edit</a>
-                    <button class="btn btn-danger delete-button">Delete</button>
+                    <a href="@Url.Action("Delete",@item)" class="btn btn-danger delete-button">Delete</a>
                 </td>
             </tr>
         }

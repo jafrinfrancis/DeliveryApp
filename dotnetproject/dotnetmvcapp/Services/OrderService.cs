@@ -7,7 +7,7 @@ namespace dotnetmvcapp.Services
     public interface IOrderService
     {
         Task<Order> CreateOrder(Order model);
-        Task<bool> DeleteOrder(Order model);
+        Task<bool> DeleteOrder(int id);
         public Task<List<Order>> GetAllOrders();
         Task<Delivery> UpdateDelivery(Delivery model);
         Task<Order> UpdateOrder(Order model);
@@ -38,9 +38,9 @@ namespace dotnetmvcapp.Services
             return resp.data;
         }
 
-        public async Task<bool> DeleteOrder(Order model)
+        public async Task<bool> DeleteOrder(int id)
         {
-            var resp = await _httpClientService.Delete<bool>(RouteConstants.OrderServiceRoutes.DeleteOrder,model);
+            var resp = await _httpClientService.Delete<bool>(RouteConstants.OrderServiceRoutes.DeleteOrder.Replace("{id}",id.ToString()),null);
             return resp.data;
         }
 

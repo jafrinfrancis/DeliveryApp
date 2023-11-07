@@ -28,9 +28,6 @@ namespace dotnetmvcapp.Controllers
         }
         public async Task<ActionResult> Dashboard()
         {
-            var token= HttpContext.Session.GetString("AuthToken");
-            var name = HttpContext.Session.GetString("UserName");
-            var email = HttpContext.Session.GetString("Email");
             var orders = await _service.GetAllOrders();
             var dasboard = new DeliveryDashboardViewModel
             {
@@ -38,8 +35,9 @@ namespace dotnetmvcapp.Controllers
                 {
                     DeliveryId = o.Delivery?.Id ?? 0,
                     OrderId = o.Id,
-                    OrderedDate = o.CreatedDate.ToLongDateString(),
-                    DeliveryStatus = GetDeliveryStatus(o.Delivery.DeliveryStatus)
+                    EstablishmentDate = o.Delivery.EstablishmentDate,
+                    DeliveryStatus = o.Delivery.DeliveryStatus,
+                    DeliveryStatusString = o.Delivery.DeliveryStatus.ToString()
 
                 }).ToList()
             };
@@ -60,6 +58,12 @@ namespace dotnetmvcapp.Controllers
         public IActionResult Edit(DeliveryDetails model)
         {
             return View(model);
+        }
+
+        public async Task<IActionResult> Delete(DeliveryDetails model)
+        {
+            var resp = await _service.DeleteOrder(model.OrderId);
+            return RedirectToAction("Dashboard");
         }
 
         [HttpPost]

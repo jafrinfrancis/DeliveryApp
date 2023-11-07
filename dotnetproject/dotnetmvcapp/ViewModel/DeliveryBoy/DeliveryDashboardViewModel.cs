@@ -1,4 +1,6 @@
-﻿namespace dotnetmvcapp.ViewModels
+﻿using dotnetmvcapp.Models;
+
+namespace dotnetmvcapp.ViewModels
 {
     public class DeliveryDashboardViewModel
     {
@@ -14,16 +16,17 @@
     {
         public int DeliveryId { get; set; }
         public int OrderId { get; set; }
-        public string OrderedDate { get; set; }
-        public string DeliveryStatus { get; set; }
-        public string CustomerName { get; set; }
+        public DeliveryStatus DeliveryStatus { get; set; }
+        public string? DeliveryStatusString { get; set; }
+        public string? CustomerName { get; set; }
 
-        public string ContactNumber { get; set; }
+        public string? ContactNumber { get; set; }
 
-        public string Location { get; set; }
+        public string? Location { get; set; }
 
         public Decimal Amount { get; set; }
 
-        public string OrderType { get; set; }
+        public OrderType OrderType { get; set; }
+        public DateTime EstablishmentDate { get; set; }
     }
 }

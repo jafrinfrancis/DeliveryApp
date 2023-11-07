@@ -129,13 +129,13 @@ namespace dotnetapiapp.Controllers
             }
         }
 
-        [Route("DeleteOrder")]
+        [Route("DeleteOrder/{id}")]
         [HttpDelete]
-        public async Task<ActionResult> DeleteOrder(Order order)
+        public async Task<ActionResult> DeleteOrder(int id)
         {
             try
             {
-                var result = await _processor.DeleteOrder(order.Id);
+                var result = await _processor.DeleteOrder(id);
                 var response = new ResponseObject<bool>{
                     IsSuccess = true,
                     data = result
