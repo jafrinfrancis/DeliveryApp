@@ -20,8 +20,8 @@ namespace dotnetmvcapp.Models
         public Decimal Amount { get; set; }
 
         public OrderType OrderType { get; set; }
-        public Delivery Delivery { get; set; }
-        public DateTime EstablishmentDate{get;set;}
+        public Delivery? Delivery { get; set; }
+        public DateTime? EstablishmentDate{get;set;}
     }
 
     

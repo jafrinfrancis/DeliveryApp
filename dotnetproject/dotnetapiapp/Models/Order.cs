@@ -18,6 +18,7 @@ namespace dotnetapiapp.Models
 
         public OrderType OrderType { get; set; }
         public Delivery Delivery { get; set; }
+        public DateTime? EstablishmentDate{get;set;}
     }
     public enum OrderType
 {
