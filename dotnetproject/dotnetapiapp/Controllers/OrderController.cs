@@ -131,11 +131,11 @@ namespace dotnetapiapp.Controllers
 
         [Route("DeleteOrder")]
         [HttpDelete]
-        public async Task<ActionResult> DeleteOrder(int Id)
+        public async Task<ActionResult> DeleteOrder(Order order)
         {
             try
             {
-                var result = await _processor.DeleteOrder(Id);
+                var result = await _processor.DeleteOrder(order.Id);
                 var response = new ResponseObject<bool>{
                     IsSuccess = true,
                     data = result

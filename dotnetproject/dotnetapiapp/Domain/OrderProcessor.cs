@@ -133,12 +133,14 @@ namespace dotnetapiapp.Domain
 
         public async Task<Delivery> UpdateDelivery(Delivery delivery)
         {
-
-            delivery = await _repo.UpdateDelivery(delivery);
-            if (delivery == null)
+            var existing = await _repo.GetDeliveryByid(delivery.Id);
+            if (existing == null)
             {
                 throw new CustomException("Delivery not Found");
             }
+            existing.DeliveryStatus = delivery.DeliveryStatus;
+            existing.ModifiedDate = DateTime.UtcNow;
+            delivery = await _repo.UpdateDelivery(existing);
             return delivery;
         }
 

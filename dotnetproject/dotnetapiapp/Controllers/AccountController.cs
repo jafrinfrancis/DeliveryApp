@@ -148,6 +148,35 @@ namespace dotnetapiapp.Controllers
         }
 
         [HttpGet]
+        [Route("GetAllUsers")]
+        public async Task<ActionResult> GetAllUsers()
+        {
+            try
+            {
+                var result = await _processor.GetAllUsers();
+                var response = new ResponseObject<List<UserDetails>>
+                {
+                    IsSuccess = true,
+                    data = result
+                };
+                return Ok(response);
+            }
+            catch (CustomException ex)
+            {
+                var response = new ResponseObject<string>
+                {
+                    IsSuccess = false,
+                    ErrorMessage = ex.Message
+                };
+                return BadRequest(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+        [HttpGet]
         [Authorize(Roles = "Admin")]
         [Route("Admin")]
         public async Task<ActionResult> Admin(){

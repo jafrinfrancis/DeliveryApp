@@ -16,6 +16,7 @@ namespace dotnetapiapp.Domain
         public Task<UserDetails> GetUserByEmail(string email);
         public Task<UserDetails> Update(UserDetails model);
         public Task<UserDetails> GetUserById(int id);
+        Task<List<UserDetails>> GetAllUsers();
     }
     public class AccountProcessor : IAccountProcessor
     {
@@ -82,6 +83,16 @@ namespace dotnetapiapp.Domain
                 throw new CustomException("User not Found");
             }
             return new UserDetails(user);
+        }
+
+        public async Task<List<UserDetails>> GetAllUsers()
+        {
+            var user = await _repo.GetAllUsers();
+            if (user == null)
+            {
+                throw new CustomException("User not Found");
+            }
+            return user.Select(u=> new UserDetails(u)).ToList();
         }
     }
 }

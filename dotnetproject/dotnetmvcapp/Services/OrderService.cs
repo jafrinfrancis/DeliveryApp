@@ -6,7 +6,11 @@ namespace dotnetmvcapp.Services
 {
     public interface IOrderService
     {
+        Task<Order> CreateOrder(Order model);
+        Task<bool> DeleteOrder(Order model);
         public Task<List<Order>> GetAllOrders();
+        Task<Delivery> UpdateDelivery(Delivery model);
+        Task<Order> UpdateOrder(Order model);
     }
     public class OrderService : IOrderService
     {
@@ -19,6 +23,30 @@ namespace dotnetmvcapp.Services
         public async Task<List<Order>> GetAllOrders()
         {
             var resp = await _httpClientService.Get<List<Order>>(RouteConstants.OrderServiceRoutes.GetAllOrders);
+            return resp.data;
+        }
+
+        public async Task<Order> CreateOrder(Order model)
+        {
+            var resp = await _httpClientService.Post<Order>(RouteConstants.OrderServiceRoutes.CreateOrder,model);
+            return resp.data;
+        }
+
+        public async Task<Order> UpdateOrder(Order model)
+        {
+            var resp = await _httpClientService.Put<Order>(RouteConstants.OrderServiceRoutes.UpdateOrder,model);
+            return resp.data;
+        }
+
+        public async Task<bool> DeleteOrder(Order model)
+        {
+            var resp = await _httpClientService.Delete<bool>(RouteConstants.OrderServiceRoutes.DeleteOrder,model);
+            return resp.data;
+        }
+
+        public async Task<Delivery> UpdateDelivery(Delivery model)
+        {
+            var resp = await _httpClientService.Put<Delivery>(RouteConstants.OrderServiceRoutes.UpdateDelivery, model);
             return resp.data;
         }
     }

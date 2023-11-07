@@ -12,6 +12,7 @@ namespace dotnetapiapp.Repository
         public Task<User> CreateUser(User model);
         public Task<User> GetUserById(int id);
         public Task<User> UpdateUser(User model);
+        Task<List<User>> GetAllUsers();
     }
     public class AccountRepository : RepositoryBase,IAccountRepository
     {
@@ -28,6 +29,12 @@ namespace dotnetapiapp.Repository
         public async Task<User> GetUserById(int id)
         {
             var user = await _context.Users.FirstOrDefaultAsync(o => o.Id == id);
+            return user;
+        }
+
+        public async Task<List<User>> GetAllUsers()
+        {
+            var user = await _context.Users.ToListAsync();
             return user;
         }
 
