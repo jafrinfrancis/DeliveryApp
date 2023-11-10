@@ -57,10 +57,8 @@
                             </div>
                             <div class="row">
                                 <div class="col">
-                                    <label> Estimated Date</label>
-                                    <div>
-                                        @Html.TextBoxFor(x => x.EstablishmentDate)
-                                    </div>
+                                    <label asp-for="EstablishmentDate">Establishment Date</label>
+                                    <input asp-for="EstablishmentDate" type="date" class="form-control" />
 
                                 </div>
 

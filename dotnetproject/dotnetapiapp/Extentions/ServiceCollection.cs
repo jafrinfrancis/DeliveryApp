@@ -27,6 +27,9 @@ namespace dotnetapiapp.Extentions
                 var connectionString = builder.Configuration.GetConnectionString("OrderDB");
                 options.UseSqlServer(connectionString);
             });
+
+            var context = services.BuildServiceProvider().GetService<OrderDeliveryDbContext>();
+            context.Database.Migrate();
         }
     }
 }
