@@ -24,6 +24,9 @@ jobs:
       - name: Navigate to path
         run: cd .\dotnetproject\dotnetmvcapp\
         
+      - name: Display path
+        run: pwd
+        
       - name: Build with dotnet
         run: dotnet build --configuration Release
 
